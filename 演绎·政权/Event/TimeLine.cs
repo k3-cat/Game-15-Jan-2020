@@ -16,7 +16,7 @@ namespace 演绎_政权.Event {
 
         public void Update() {
             foreach (var e in events) {
-                if (e.check()) {
+                if (e.Check()) {
                     events.Remove(e);
                 }
             }

@@ -23,7 +23,7 @@ namespace 演绎_政权.Event {
             GV.screen.AddTE(c.name, s, t);
         }
 
-        public bool check() {
+        public bool Check() {
             if (t == 0) {
                 c.G += g;
                 c.P += p;

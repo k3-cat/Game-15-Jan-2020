@@ -18,7 +18,7 @@ namespace 演绎_政权.Output {
         }
 
         public void AddS(World.Country c) {
-            var pre = $"   {c.id} {c.name}: ";
+            var pre = $"   {c.Id} {c.name}: ";
             var preLen = 24 - Output.TextLength.Measure(pre);
             var s = new StringBuilder(pre);
             while (preLen > 0) {

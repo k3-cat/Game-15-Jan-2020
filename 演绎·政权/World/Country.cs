@@ -3,7 +3,7 @@ using System.Text;
 
 namespace 演绎_政权.World {
     class Country {
-        public uint id;
+        uint id;
         public string name;
         public uint m;
         decimal g;
@@ -25,9 +25,17 @@ namespace 演绎_政权.World {
             V = 0;
             修改税率(taxRate);
             this.isCountry = isCountry;
-            m = 0;
+            m = (isCountry) ? 3u : 2u;
             isExile = false;
             inWar = false;
+        }
+
+        public uint Id {
+            get { return id; }
+            set { 
+                id = value;
+                GV.screen.AddS(this);
+            }
         }
 
         public decimal G {
@@ -65,12 +73,8 @@ namespace 演绎_政权.World {
 
         public void Update() {
             m = (isCountry) ? 3u : 2u;
-
-            var d_tax = taxRate * P;
-            var d_mE = 0.25m * A;
-            var d_p = 0.1m * P;
-            G += (d_tax - d_mE);
-            P += d_p;
+            G += taxRate * P - 0.25m * A;
+            P += 0.1m * P;
 
             GV.screen.AddS(this);
         }

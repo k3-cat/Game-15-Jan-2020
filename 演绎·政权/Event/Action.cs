@@ -4,27 +4,16 @@ using DynamicExpresso;
 
 namespace 演绎_政权.Event {
     class Action {
-        readonly Dictionary<string, Effect> list;
-        readonly List<string> index;
+        readonly Dictionary<uint, Effect> actions;
 
         public Action(Profile.Loader l) {
-            index = new List<string>();
-            list = new Dictionary<string, Effect>();
+            actions = new Dictionary<uint, Effect>();
             var version = l.GetVersionString();
             GV.screen.ShowInfo($"参数版本: {version}");
             Console.Title += $" | 参数版本: {version.Substring(0, 16)}";
 
             var interpreter = new Interpreter();
             Effect.Null = interpreter.Parse("0*x", new Parameter("x", typeof(uint)));
-            foreach (var p in l.profile) {
-                index.Add(p.head[0]);
-                var rule = new Dictionary<string, Lambda>();
-                foreach (var r in p.body) {
-                    rule.Add(r.Key, interpreter.Parse(r.Value, new Parameter("x", typeof(uint))));
-                }
-                list.Add(p.head[0], new Effect(p.head[0], Convert.ToUInt32(p.head[1]), Convert.ToUInt32(p.head[2]), rule));
-            }
-
             var menu = new List<string>() {
                 "*#: 修改数值",
                 "1%: 招义勇军",
@@ -37,15 +26,20 @@ namespace 演绎_政权.Event {
                 "8%: 结束流亡",
                 "9%: 改国号"
             };
-            var i = 1;
-            foreach (var a in index) {
-                menu.Add($"{i}: {a}");
+            var i = 1u;
+            foreach (var p in l.profile) {
+                var rule = new Dictionary<string, Lambda>();
+                foreach (var r in p.body) {
+                    rule.Add(r.Key, interpreter.Parse(r.Value, new Parameter("x", typeof(uint))));
+                }
+                actions.Add(i, new Effect(p.head[0], Convert.ToUInt32(p.head[1]), Convert.ToUInt32(p.head[2]), rule));
+                menu.Add($"{i}: {p.head[0]}");
                 i += 1;
             }
             GV.screen.SetMenu(menu);
         }
 
-        public void Phase(World.Country c, uint cat, string action, string parm) {
+        public void Parse(World.Country c, uint cat, string action, string parm) {
             if (cat == 1) {
                 if (action == "G") {
                     c.G = Convert.ToDecimal(parm);
@@ -79,8 +73,8 @@ namespace 演绎_政权.Event {
                     c.改国号(parm);
                 }
             } else {
-                var i = Convert.ToInt32(action);
-                list[index[i-1]].Apply(c: c, Convert.ToUInt32(parm));
+                var i = Convert.ToUInt32(action);
+                actions[i].Apply(c: c, Convert.ToUInt32(parm));
             }
         }
     }

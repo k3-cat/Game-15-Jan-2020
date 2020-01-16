@@ -4,14 +4,14 @@ using System.Text;
 
 namespace 演绎_政权.World {
     class AI {
-        readonly List<Country> npcM;
+        readonly List<Country> npcMap;
 
         public AI(List<Country> npc) {
-            npcM = npc;
+            npcMap = npc;
         }
 
         public void Auto(decimal g, decimal p, decimal a) {
-            foreach (var npc in npcM) {
+            foreach (var npc in npcMap) {
                 npc.Update();
                 npc.m = 0;
                 if (npc.G < g) {
@@ -39,7 +39,7 @@ namespace 演绎_政权.World {
         }
 
         public Country Select(int id) {
-            return npcM[id - 1];
+            return npcMap[id - 1];
         }
 
         void A(Country c) {

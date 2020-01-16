@@ -9,7 +9,6 @@ namespace 演绎_政权 {
             Console.BackgroundColor = ConsoleColor.White;
             Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.Title = "演绎·政权 by Pix-00";
-            Console.Clear();
             Banner();
             GV.rng = new Random();
             GV.screen = new Output.Screen();
@@ -37,7 +36,7 @@ namespace 演绎_政权 {
                     c = map.Select(Convert.ToInt32(cmd[1]));
                 }
                 try {
-                    action.Phase(c, cat, cmd[0], s_[1]);
+                    action.Parse(c, cat, cmd[0], s_[1]);
                 } catch {
 
                 }
@@ -45,6 +44,7 @@ namespace 演绎_政权 {
         }
 
         static void Banner() {
+            Console.Clear();
             Console.WriteLine("\n");
             Console.WriteLine(
                 "      ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗\n" +
