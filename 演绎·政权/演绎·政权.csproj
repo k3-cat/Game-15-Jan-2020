@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>演绎_政权</RootNamespace>
+    <Authors>Pix-00</Authors>
+    <PackageId>演绎_政权</PackageId>
+    <AssemblyName>Game</AssemblyName>
+    <ApplicationIcon />
+    <StartupObject />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DynamicExpresso.Core" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="演绎_政权.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
