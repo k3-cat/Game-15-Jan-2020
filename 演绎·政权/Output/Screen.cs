@@ -4,7 +4,7 @@ using System.Text;
 
 namespace 演绎_政权.Output {
     class Screen {
-        StringBuilder state;
+        string[] countryState;
         StringBuilder timedEffect;
         string menu;
 
@@ -18,12 +18,12 @@ namespace 演绎_政权.Output {
         }
 
         public void AddS(World.Country c) {
-            var pre = $"   {c.Id} {c.name}: ";
-            var preLen = 24 - Output.TextLength.Measure(pre);
+            var pre = (c.id < 10) ? $"   {c.id}   {c.name}" : $"   {c.id}  {c.name}";
+            var preLen = 23 - Output.TextLength.Measure(pre);
             var s = new StringBuilder(pre);
             while (preLen > 0) {
-                s.Append('\t');
-                preLen -= 8;
+                s.Append(' ');
+                preLen -= 1;
             }
             s.Append($"{c.G}\t{c.P}\t{c.A}\t{c.V}\t{c.H}");
             if (!c.isCountry) {
@@ -35,18 +35,20 @@ namespace 演绎_政权.Output {
             if (c.isExile) {
                 s.Append("\t逃亡");
             }
-            state.Append(s.ToString());
-            state.Append('\n');
+            s.Append('\n');
+            countryState[c.id - 1] = s.ToString();
         }
 
         public void Clean() {
             timedEffect = new StringBuilder();
-            state = new StringBuilder("   编号 名称\t\tG\tP\tA\tV\tH\t其它状态\n" +
-                "   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
         }
 
         public void SetMenu(List<string> m) {
             menu = Table.Build(m, "MENU", 5);
+        }
+
+        public void InitCampCount(int count) {
+            countryState = new string[count];
         }
 
         public void Flush() {
@@ -58,7 +60,14 @@ namespace 演绎_政权.Output {
                 Console.WriteLine();
             }
             Console.WriteLine("   = = = = = [ 各国状态 ] = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-            Console.Write(state.ToString());
+            Console.Write("   id  名称            G\tP\tA\tV\tH\t其它状态\n" +
+                          "   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+            for (var i = GV.mapL; i < countryState.Length; i++) {
+                Console.Write(countryState[i]);
+            }
+            for (var i = 0; i < GV.mapL; i++) {
+                Console.Write(countryState[i]);
+            }
             Console.Write(menu);
         }
 

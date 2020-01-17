@@ -5,5 +5,6 @@ namespace 演绎_政权 {
         static public Event.TimeLine timeLine;
         static public Output.Screen screen;
         static public Random rng;
+        static public int mapL;
     }
 }

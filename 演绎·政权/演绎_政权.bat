@@ -1,3 +1,3 @@
 @echo off
-dotnet %cd%/Game.dll
+powershell dotnet %cd%/Game.dll
 pause

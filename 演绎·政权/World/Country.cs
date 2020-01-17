@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Text;
 
 namespace 演绎_政权.World {
     class Country {
-        uint id;
+        public uint id;
         public string name;
         public uint m;
         decimal g;
@@ -16,7 +15,8 @@ namespace 演绎_政权.World {
         public bool isExile;
         public bool inWar;
 
-        public Country(string name, decimal g, decimal p, decimal a, decimal h, string taxRate, bool isCountry) {
+        public Country(uint id, string name, decimal g, decimal p, decimal a, decimal h, string taxRate, bool isCountry) {
+            this.id = id;
             this.name = name;
             G = g;
             P = p;
@@ -28,14 +28,8 @@ namespace 演绎_政权.World {
             m = (isCountry) ? 3u : 2u;
             isExile = false;
             inWar = false;
-        }
 
-        public uint Id {
-            get { return id; }
-            set { 
-                id = value;
-                GV.screen.AddS(this);
-            }
+            GV.screen.AddS(this);
         }
 
         public decimal G {

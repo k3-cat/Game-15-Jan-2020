@@ -9,7 +9,6 @@ namespace 演绎_政权.Profile{
         readonly HashAlgorithm sha;
         public readonly List<Item> profile;
 
-
         public Loader(string path) {
             sha = new SHA256Managed();
             profile = new List<Item>();

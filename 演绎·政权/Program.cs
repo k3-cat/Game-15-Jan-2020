@@ -20,9 +20,12 @@ namespace 演绎_政权 {
                 var c = map.Next();
                 GV.screen.Flush();
 
-                var s_ = GV.screen.Ask($"[{c.name},{c.m}]: ").Split(' ');
+                var s_ = GV.screen.Ask($"[{c.name},{c.m}]: ").Trim().Split(' ');
                 var cat = 0u;
                 string[] cmd;
+                if (s_.Length < 2) {
+                    s_ = new string[] { s_[0], "0" };
+                }
                 if (s_[0].Contains('#')) {
                     cat = 1u;
                     cmd = s_[0].Split('#');
@@ -89,33 +92,32 @@ namespace 演绎_政权 {
                 " $$       $$$     $$$        $$$$$$$?        $$                  $$$$$        $$$J   $$$$          $$    $$$$     $$$$$ ",
                 "@$$    $$$k         t$$$                     $$                            <$$$`       I$$$        $$ $$$$$          $$$"
             };
-            var line = 5;
             Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.CursorTop = 5;
             foreach (var l in buffer1) {
-                Console.CursorTop = line;
                 Console.CursorLeft = 12;
                 Console.Write(l);
-                line += 1;
+                Console.CursorTop += 1;
             }
 
             string[] buffer2 = {
                 "Author: Pix-00 -> GitHub.com",
                 "QQ: K3 (291232454)",
                 "License: Apache 2.0",
-                "Release Date: 15-Jan-2020",
+                "Init Release: 15-Jan-2020",
                 "Nonce: 759934019"
             };
-            Console.CursorTop = 23;
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.CursorLeft = 9 - 5;
+            Console.CursorTop += 4;
+            Console.CursorLeft = 9;
             foreach (var l in buffer2) {
-                Console.CursorLeft += 5;
                 Console.Write(l);
+                Console.CursorLeft += 5;
             }
 
             Console.ForegroundColor = ConsoleColor.DarkBlue;
-            Console.CursorTop = 28;
-            Console.CursorLeft = 0;
+            Console.CursorTop = 26;
+            Console.WriteLine();
         }
     }
 }

@@ -16,6 +16,7 @@ namespace 演绎_政权.Event {
             Effect.Null = interpreter.Parse("0*x", new Parameter("x", typeof(uint)));
             var menu = new List<string>() {
                 "*#: 修改数值",
+                "0%: 消耗M",
                 "1%: 招义勇军",
                 "2%: 修改税率",
                 "3%: 开始战争",
@@ -53,7 +54,14 @@ namespace 演绎_政权.Event {
                     c.H = Convert.ToDecimal(parm);
                 }
             } else if (cat == 2) {
-                if (action == "1") {
+                if (action == "0") {
+                    var dM = Convert.ToUInt32(parm);
+                    if (c.m <= dM) {
+                        c.m = 0;
+                    } else {
+                        c.m -= dM;
+                    }
+                } else if (action == "1") {
                     c.招义勇军(parm);
                 } else if (action == "2") {
                     c.修改税率(parm);
